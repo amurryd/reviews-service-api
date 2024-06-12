@@ -1,23 +1,22 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+const mongoose = require('mongoose');
 
-const Review = sequelize.define('Review', {
+const reviewSchema = new mongoose.Schema({
   customerName: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: String,
+    required: true
   },
   rating: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 1,
-      max: 5
-    }
+    type: Number,
+    required: true,
+    min: 1,
+    max: 5
   },
   comment: {
-    type: DataTypes.TEXT,
-    allowNull: true
+    type: String,
+    required: false
   }
 });
+
+const Review = mongoose.model('Review', reviewSchema);
 
 module.exports = Review;
